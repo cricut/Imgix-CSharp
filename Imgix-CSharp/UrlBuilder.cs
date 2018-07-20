@@ -31,6 +31,8 @@ namespace Imgix_CSharp
 
         private int ShardCycleIndex = 0;
 
+        public string LibraryString { get; set; }
+
         public UrlBuilder(String[] domains, Boolean useHttps = false)
         {
             if (useHttps && ShardStrategy == ShardStrategyType.NONE)
@@ -40,6 +42,8 @@ namespace Imgix_CSharp
 
             UseHttps = useHttps;
             Domains = domains;
+
+            LibraryString = String.Format("csharp-{0}", typeof(UrlBuilder).GetTypeInfo().Assembly.GetName().Version);
         }
 
         public UrlBuilder(String domain, Boolean useHttps = false)
@@ -80,7 +84,7 @@ namespace Imgix_CSharp
 
             if (SignWithLibrary)
             {
-                Parameters.Add("ixlib", String.Format("csharp-{0}", typeof(UrlBuilder).GetTypeInfo().Assembly.GetName().Version));
+                Parameters["ixlib"] = LibraryString;
             }
 
             return GenerateUrl(path, domain);
