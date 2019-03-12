@@ -82,7 +82,7 @@ namespace Imgix_CSharp
 
             var domain = Domains.ElementAt(index);
 
-            if (SignWithLibrary)
+            if (SignWithLibrary && !Parameters.ContainsKey("ixlib"))
             {
                 Parameters["ixlib"] = LibraryString;
             }
